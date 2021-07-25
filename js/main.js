@@ -3,9 +3,15 @@
 (function(){
 
     //pseudo-global variables
-    var attrArray = ["varA", "varB", "varC", "varD", "varE"]; //list of attributes csv
+    var attrArray = ["acreTot", "acresTopAg", "farmAcreTot", "farmPercTot", "name","pastAcreTot"]; //list of attributes csv
     var expressed = attrArray[0]; //attribute at index[0] (starting point)
-    
+
+    console.log(attrArray[0]);
+    console.log(attrArray[1]);
+    console.log(attrArray[2]);
+    console.log(attrArray[3]);
+    console.log(attrArray[4]);
+
     //chart frame dimensions
     var chartWidth = window.innerWidth * 0.425,
         chartHeight = 473,
@@ -20,8 +26,7 @@
     var yScale = d3.scaleLinear()
         .range([chartHeight - 10, 0])
         .domain([0, 88*1.1]); // csv first column max = 88
-    
-    
+
     //begin script when window loads
     window.onload = setMap();
     
@@ -136,7 +141,11 @@
         for (var i=0; i<csvData.length; i++){
             var csvState = csvData[i]; //usState at the current index
             var csvKey = csvState.name; //CSV primary key for join
-    
+
+            console.log(csvState.name);
+            console.log(csvKey);
+
+
             //loop through geojson regions to find correct state
             for (var a=0; a <usStates.length; a++){
     
@@ -145,18 +154,23 @@
     
                 //where primary keys match, transfer csv data to geojson properties object
                 if (geojsonKey == csvKey){
-    
+
+                    console.log(csvKey);
+
                     //assign all attributes and values
                     attrArray.forEach(function(attr){
+                        console.log(csvState);
                         var values = parseFloat(csvState[attr]); //get csv attribute value
+                        console.log(attr);
+                        console.log(csvState[attr]);
+                        console.log(values);
                         geojsonProps[attr] = values; //assign attribute and value to geojson properties
                     });
                 };
             };
         };
-    
-    
         return usStates;
+        console.log(usStates);
     };
     
     //Create Color Scale 
